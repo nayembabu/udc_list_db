@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 06, 2020 at 03:53 PM
+-- Generation Time: Dec 06, 2020 at 04:03 PM
 -- Server version: 8.0.22-0ubuntu0.20.04.3
 -- PHP Version: 7.4.3
 
@@ -134,6 +134,40 @@ INSERT INTO `div_list` (`div_id`, `div_name`, `div_bn_name`, `div_url`) VALUES
 (6, 'Dhaka', 'ঢাকা', 'www.dhakadiv.gov.bd'),
 (7, 'Rangpur', 'রংপুর', 'www.rangpurdiv.gov.bd'),
 (8, 'Mymensingh', 'ময়মনসিংহ', 'www.mymensinghdiv.gov.bd');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `groups`
+--
+
+CREATE TABLE `groups` (
+  `id` mediumint UNSIGNED NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `description` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `groups`
+--
+
+INSERT INTO `groups` (`id`, `name`, `description`) VALUES
+(1, 'admin', 'Administrator'),
+(2, 'gen', 'General User'),
+(3, 'admin', 'ahsgdj');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `login_attempts`
+--
+
+CREATE TABLE `login_attempts` (
+  `id` int UNSIGNED NOT NULL,
+  `ip_address` varchar(45) NOT NULL,
+  `login` varchar(100) NOT NULL,
+  `time` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -14705,6 +14739,61 @@ INSERT INTO `up_list` (`up_id`, `district_id`, `up_name`, `up_bn_name`, `up_url`
 (490, 64, 'Purbadhala', 'পূর্বধলা', 'purbadhala.netrokona.gov.bd'),
 (491, 64, 'Netrokona Sadar', 'নেত্রকোণা সদর', 'netrokonasadar.netrokona.gov.bd');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int UNSIGNED NOT NULL,
+  `ip_address` varchar(45) NOT NULL,
+  `username` varchar(100) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(254) NOT NULL,
+  `activation_selector` varchar(255) DEFAULT NULL,
+  `activation_code` varchar(255) DEFAULT NULL,
+  `forgotten_password_selector` varchar(255) DEFAULT NULL,
+  `forgotten_password_code` varchar(255) DEFAULT NULL,
+  `forgotten_password_time` int UNSIGNED DEFAULT NULL,
+  `remember_selector` varchar(255) DEFAULT NULL,
+  `remember_code` varchar(255) DEFAULT NULL,
+  `created_on` int UNSIGNED NOT NULL,
+  `last_login` int UNSIGNED DEFAULT NULL,
+  `active` tinyint UNSIGNED DEFAULT NULL,
+  `first_name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
+  `company` varchar(100) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
+(1, '127.0.0.1', 'admin', '$2y$12$ZpV4ECiMmwrNsgySplTLn.VGjKopDKSq2Pa.sfNC74l8jPZBaQe82', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1606814305, 1, 'Admin', 'istrator', 'ADMIN', '0');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_groups`
+--
+
+CREATE TABLE `users_groups` (
+  `id` int UNSIGNED NOT NULL,
+  `user_id` int UNSIGNED NOT NULL,
+  `group_id` mediumint UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `users_groups`
+--
+
+INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
+(1, 1, 1),
+(2, 1, 2);
+
 --
 -- Indexes for dumped tables
 --
@@ -14721,6 +14810,18 @@ ALTER TABLE `dist_list`
 --
 ALTER TABLE `div_list`
   ADD PRIMARY KEY (`div_id`);
+
+--
+-- Indexes for table `groups`
+--
+ALTER TABLE `groups`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `login_attempts`
+--
+ALTER TABLE `login_attempts`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `raw_data`
@@ -14749,6 +14850,25 @@ ALTER TABLE `up_list`
   ADD KEY `district_id` (`district_id`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `uc_email` (`email`),
+  ADD UNIQUE KEY `uc_activation_selector` (`activation_selector`),
+  ADD UNIQUE KEY `uc_forgotten_password_selector` (`forgotten_password_selector`),
+  ADD UNIQUE KEY `uc_remember_selector` (`remember_selector`);
+
+--
+-- Indexes for table `users_groups`
+--
+ALTER TABLE `users_groups`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `uc_users_groups` (`user_id`,`group_id`),
+  ADD KEY `fk_users_groups_users1_idx` (`user_id`),
+  ADD KEY `fk_users_groups_groups1_idx` (`group_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -14763,6 +14883,18 @@ ALTER TABLE `dist_list`
 --
 ALTER TABLE `div_list`
   MODIFY `div_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `groups`
+--
+ALTER TABLE `groups`
+  MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `login_attempts`
+--
+ALTER TABLE `login_attempts`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `raw_data`
@@ -14789,6 +14921,18 @@ ALTER TABLE `up_list`
   MODIFY `up_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=492;
 
 --
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `users_groups`
+--
+ALTER TABLE `users_groups`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -14809,6 +14953,13 @@ ALTER TABLE `un_list`
 --
 ALTER TABLE `up_list`
   ADD CONSTRAINT `up_list_ibfk_2` FOREIGN KEY (`district_id`) REFERENCES `dist_list` (`dist_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `users_groups`
+--
+ALTER TABLE `users_groups`
+  ADD CONSTRAINT `fk_users_groups_groups1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_users_groups_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
