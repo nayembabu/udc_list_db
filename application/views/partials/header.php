@@ -7,10 +7,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <title>UDC</title>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/main.css">
-    <title>UDC</title>
+    <script src="assets/jquery_3.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -31,7 +36,7 @@
                         <a class="nav-link" href="search">search</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">raw data</a>
+                        <a class="nav-link" href="all_mobile">raw data</a>
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">

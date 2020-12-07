@@ -6,7 +6,7 @@
     <div class="col-md-6 mx-auto">
     
         <div class="form-inline">
-            <input type="text" id="search" class="form-control search mr-3" placeholder="type your data">
+            <input type="text" id="search" class="form-control search mr-3 searcing_options" placeholder="type your data">
             <button type="button" class="btn btn-success">Search</button>
         </div>
     </div>
@@ -14,34 +14,58 @@
 
 <!-- table -->
 
-<table class="table table-hover table-striped">
-    <thead>
-        <tr>
-            <th>udc name</th>
-            <th>phone</th>
-            <th>email</th>
-            <th>Div name</th>
-            <th>Dist name</th>
-            <th>Upzila</th>
-            <th>Union</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Abul Bashar</td>
-            <td>01710162347</td>
-            <td>abulbashar111992@gmail.com</td>
-            <td>বরিশাল</td>
-            <td>বরগুনা</td>
-            <td>আমতলী</td>
-            <td>আমতলী</td>
-        </tr>
-    </tbody>
-</table>
-
-
-
+<table class="table table-hover table-striped searcing_data_assign"></table>
 
 
 
 </div>
+
+
+<script type="text/javascript">
+
+    $(document).on('keyup', '.searcing_options', function () {
+        var type_search_data = $(this).val();
+        if (type_search_data != '') {
+            $.ajax({
+                url: 'main/get_udc_info_by_json?search_info=' + type_search_data,
+                method: 'GET',
+                data: '',
+                dataType: 'json',
+                success: function (udc_info) {
+                    var html_data = '';
+                    for (let n = 0; n < udc_info.length; n++) {
+                        html_data += '<tr>'+
+                                        '<td>'+udc_info[n].udc_person_name+'</td>'+
+                                        '<td>'+udc_info[n].udc_mobile_no+'</td>'+
+                                        '<td>'+udc_info[n].udc_email+'</td>'+
+                                        '<td>'+udc_info[n].union_name+'</td>'+
+                                        '<td>'+udc_info[n].upazilla_name+'</td>'+
+                                        '<td>'+udc_info[n].dist_name+'</td>'+
+                                        '<td>'+udc_info[n].div_name+'</td>'+
+                                    '</tr>';
+                    }
+                    $('.searcing_data_assign').html('<thead>'+
+                                    '<tr>'+
+                                        '<th> udc name </th>'+
+                                        '<th> phone </th>'+
+                                        '<th> email </th>'+
+                                        '<th> Union </th>'+
+                                        '<th> Upzila </th>'+
+                                        '<th> Dist name </th>'+
+                                        '<th> Div name </th>'+
+                                    '</tr>'+
+                                '</thead>'+
+                                '<tbody>'+
+                                    html_data+
+                                '</tbody>'
+                                );
+                } 
+            })
+        }else {
+            $('.searcing_data_assign').html('Search box empty...');
+        }
+    });
+
+</script>
+
+
