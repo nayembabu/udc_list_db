@@ -55,6 +55,11 @@ $route['search'] = 'main/search';
 $route['add'] = 'main/add';
 $route['admin'] = 'main/index';
 $route['all_mobile'] = 'main/mobile_for_sms';
+$route['login'] = 'welcome/user_login';
+$route['logout'] = 'auth/logout';
+$route['login_verify'] = 'auth/login';
+
+
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

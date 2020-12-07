@@ -14,6 +14,18 @@ class Main extends CI_Controller
     {
         parent::__construct();
         $this->load->model('main_model');
+
+        $this->load->library('session');
+        $this->load->library('upload');
+        $this->load->library('Ion_auth');
+        $this->load->model('ion_auth_model');
+
+        if (!$this->ion_auth->logged_in()) {
+            redirect('login', 'refresh');
+        }
+        if (!$this->ion_auth->in_group(array('admin'))) {
+            redirect('logout');
+        }
     }
 
     

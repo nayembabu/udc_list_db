@@ -39,10 +39,10 @@
                         <a class="nav-link" href="all_mobile">raw data</a>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
+                <div class="form-inline my-2 my-lg-0">
+                    <a href="auth" class="btn btn-outline-success my-2 my-sm-0"> auth page</a>
+                    <a href="logout" class="btn btn-outline-success my-2 my-sm-0" >Log Out</a>
+                </div>
             </div>
         </div>
     </nav>
