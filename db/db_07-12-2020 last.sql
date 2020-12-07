@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 07, 2020 at 01:38 PM
+-- Generation Time: Dec 07, 2020 at 04:10 PM
 -- Server version: 8.0.22-0ubuntu0.20.04.3
 -- PHP Version: 7.4.3
 
@@ -168,14 +168,6 @@ CREATE TABLE `login_attempts` (
   `login` varchar(100) NOT NULL,
   `time` int UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `login_attempts`
---
-
-INSERT INTO `login_attempts` (`id`, `ip_address`, `login`, `time`) VALUES
-(1, '127.0.0.1', 'nayembabu', 1607270687),
-(2, '127.0.0.1', 'nayembabu', 1607270694);
 
 -- --------------------------------------------------------
 
@@ -9672,6 +9664,18 @@ CREATE TABLE `udc_info_s` (
   `remarks` longtext CHARACTER SET utf8 COLLATE utf8_general_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `udc_info_s`
+--
+
+INSERT INTO `udc_info_s` (`udc_list_auto_p_iidd`, `div_a_iddd`, `dist_a_iddd`, `up_a_iddd`, `un_a_iddd`, `udc_per_name`, `udc_phone_no`, `udc_phone_no_2`, `udc_phone_no_3`, `udc_email_no`, `remarks`) VALUES
+(1, 1, 8, 67, 645, 'Abu Sayed', '01822444214', '', '', '4no.dhoom.up@gmail.com', ''),
+(2, 1, 8, 67, 644, 'মো: শহিদুল হক পরাগ', '01820505076', '', '', 'zorargonjno3ctg_uisc@yahoo.com', ''),
+(3, 1, 8, 67, 642, 'সাইফুর রহমান ( রাজু)', '01814974890', '', '', 'rajuahamad73@gmail.com', ''),
+(4, 1, 8, 67, 646, 'প্রতাপ চন্দ্র নাথ', '01813993343', '', '', 'osmanpur.uisc@gmail.com', ''),
+(5, 1, 8, 67, 654, 'জাহেদ হোসেন', '01824939232', '', '', 'uisc13@gmail.com', ''),
+(6, 1, 2, 19, 198, 'শাহাদাত হোসেন', '01815807106', '', '', 'shahadat.feni06@gmail.com', '');
+
 -- --------------------------------------------------------
 
 --
@@ -14759,6 +14763,7 @@ CREATE TABLE `users` (
   `id` int UNSIGNED NOT NULL,
   `ip_address` varchar(45) NOT NULL,
   `username` varchar(100) DEFAULT NULL,
+  `u_type` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `email` varchar(254) NOT NULL,
   `activation_selector` varchar(255) DEFAULT NULL,
@@ -14781,8 +14786,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'admin', '$2y$12$ZpV4ECiMmwrNsgySplTLn.VGjKopDKSq2Pa.sfNC74l8jPZBaQe82', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1607270707, 1, 'Admin', 'istrator', 'ADMIN', '0');
+INSERT INTO `users` (`id`, `ip_address`, `username`, `u_type`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
+(1, '127.0.0.1', 'admin', 'nayembabu', '$2y$12$ZpV4ECiMmwrNsgySplTLn.VGjKopDKSq2Pa.sfNC74l8jPZBaQe82', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1607350554, 1, 'Admin', 'istrator', 'ADMIN', '0'),
+(2, '127.0.0.1', 'admin', 'jashim', '$2y$12$0wH1UhuGdaiMXoFwj6b6neHvQB0CSqT4qzrn5WhhlSTQhCm0aKfn6', 'jashim@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1607352860, 1, 'jashim', 'uddin', '', ''),
+(3, '127.0.0.1', 'admin', 'sakil', '$2y$12$vVbUtfiWLQ9BwrKkR2CKXeHRjdsCK4RgOQxGl9Ai8wSyL9bpX.sJ.', 'sakil@example.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1607351027, 1, 'sayed', 'sakil', '', '');
 
 -- --------------------------------------------------------
 
@@ -14802,7 +14809,9 @@ CREATE TABLE `users_groups` (
 
 INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (1, 1, 1),
-(2, 1, 2);
+(2, 1, 2),
+(3, 2, 1),
+(4, 3, 1);
 
 --
 -- Indexes for dumped tables
@@ -14904,7 +14913,7 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `raw_data`
@@ -14916,7 +14925,7 @@ ALTER TABLE `raw_data`
 -- AUTO_INCREMENT for table `udc_info_s`
 --
 ALTER TABLE `udc_info_s`
-  MODIFY `udc_list_auto_p_iidd` int NOT NULL AUTO_INCREMENT;
+  MODIFY `udc_list_auto_p_iidd` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `un_list`
@@ -14934,13 +14943,13 @@ ALTER TABLE `up_list`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

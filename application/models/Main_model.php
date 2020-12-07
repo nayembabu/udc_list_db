@@ -59,4 +59,11 @@ class Main_model extends CI_Model
     {
         $this->db->insert('udc_info_s', $data);
     }
+
+    public function check_mobile_entry($udc_phone_no_1)
+    {
+        $this->db->where('udc_phone_no', $udc_phone_no_1);
+        $sql = $this->db->get('udc_info_s');
+        return $sql->row();    
+    }
 }

@@ -2,6 +2,7 @@
 
 <?php
     $add_messege = $this->session->flashdata('add_messege');
+    $wrong_messege = $this->session->flashdata('wrong_messege');
 ?>
 
 
@@ -11,6 +12,9 @@
         <?php if (!empty($add_messege)) { ?>
             <h3 class="flashmessage"><center class="alert alert-success"> <?php echo $add_messege; ?> </center> </h3>
         <?php } ?>
+        <?php if (!empty($wrong_messege)) { ?>
+            <h3 class="flashmessage"><center class="alert alert-danger"> <?php echo $wrong_messege; ?> </center> </h3>
+        <?php } ?>
         <div >
             <h2 >Add UDC</h2>
         </div>
@@ -19,7 +23,7 @@
         <form action="udc_added" method="post">
             <div class="form-row">
                 <div class="form-group col-md-3">
-                    <select name="div_auto_iid" id="" class="form-control div_selection_opt">
+                    <select name="div_auto_iid" required="required" id="" class="form-control div_selection_opt">
                         <option value=""> Select Division </option>
                         <?php foreach ($all_div as $div) { ?>
                             <option value="<?php echo $div->div_id; ?>"> <?php echo $div->div_bn_name; ?> </option>
@@ -27,17 +31,17 @@
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                    <select name="dis_a_iidddd" id="" class="form-control dis_select_opt">
+                    <select name="dis_a_iidddd" required="required" id="" class="form-control dis_select_opt">
                         <option value="">Select District</option>
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                    <select name="up_auto_iidddd" id="" class="form-control select_up_opt">
+                    <select name="up_auto_iidddd" required="required" id="" class="form-control select_up_opt">
                         <option value="">Select Upzila</option>
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                    <select name="un_a_idid" id="" class="form-control selection_un_opt">
+                    <select name="un_a_idid" id="" required="required" class="form-control selection_un_opt">
                         <option value="">Select Union</option>
                     </select>
                 </div>
@@ -45,29 +49,29 @@
             <div class="form-group row">
                 <label  class="col-sm-2 col-form-label">Name</label>
                 <div class="col-sm-10">
-                <input type="text" class="form-control udc_name_info" id="name" name="udc_name">
+                <input type="text" required="required" class="form-control udc_name_info" id="name" name="udc_name">
             </div>
             </div>
             
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label>phone 1</label>
-                    <input type="text" class="form-control udc_phone_info" name="udc_phone_no_1">
+                    <input type="text" required="required" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" class="form-control udc_phone_info" name="udc_phone_no_1" maxlength="11">
                 </div>
                 <div class="form-group col-md-4">
                     <label>phone 2</label>
-                    <input type="text" class="form-control" name="udc_phone_no_two">
+                    <input type="text" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" class="form-control" name="udc_phone_no_two">
                 </div>
                 <div class="form-group col-md-4">
                     <label>phone 3</label>
-                    <input type="text" class="form-control" name="udc_phone_no_three">
+                    <input type="text" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" class="form-control" name="udc_phone_no_three">
                 </div>
             </div>
             
             <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-10">
-                <input type="email" class="form-control udc_email_info" id="inputEmail3" name="udc_email_add">
+                <input type="email" required="required" class="form-control udc_email_info" id="inputEmail3" name="udc_email_add">
             </div>
             </div>
             <div class="form-group  ">
