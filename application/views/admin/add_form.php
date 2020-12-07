@@ -1,80 +1,92 @@
-<br>
+<br><br>
+
+<?php
+    $add_messege = $this->session->flashdata('add_messege');
+?>
+
+
+
 <div class="container">
     <div class="card">
+        <?php if (!empty($add_messege)) { ?>
+            <h3 class="flashmessage"><center class="alert alert-success"> <?php echo $add_messege; ?> </center> </h3>
+        <?php } ?>
         <div >
             <h2 >Add UDC</h2>
         </div>
 
         <div class="card-body">
-            <form action="">
-        <div class="form-row">
-            <div class="form-group col-md-3">
-                <select name="" id="" class="form-control div_selection_opt">
-                    <option value=""> Select Division </option>
-                    <?php foreach ($all_div as $div) { ?>
-                        <option value="<?php echo $div->div_id; ?>"> <?php echo $div->div_bn_name; ?> </option>
-                    <?php } ?>
-                </select>
+        <form action="udc_added" method="post">
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <select name="div_auto_iid" id="" class="form-control div_selection_opt">
+                        <option value=""> Select Division </option>
+                        <?php foreach ($all_div as $div) { ?>
+                            <option value="<?php echo $div->div_id; ?>"> <?php echo $div->div_bn_name; ?> </option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <select name="dis_a_iidddd" id="" class="form-control dis_select_opt">
+                        <option value="">Select District</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <select name="up_auto_iidddd" id="" class="form-control select_up_opt">
+                        <option value="">Select Upzila</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <select name="un_a_idid" id="" class="form-control selection_un_opt">
+                        <option value="">Select Union</option>
+                    </select>
+                </div>
             </div>
-            <div class="form-group col-md-3">
-                <select name="" id="" class="form-control dis_select_opt">
-                    <option value="">Select District</option>
-                </select>
+            <div class="form-group row">
+                <label  class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-10">
+                <input type="text" class="form-control udc_name_info" id="name" name="udc_name">
             </div>
-            <div class="form-group col-md-3">
-                <select name="" id="" class="form-control select_up_opt">
-                    <option value="">Select Upzila</option>
-                </select>
             </div>
-            <div class="form-group col-md-3">
-                <select name="" id="" class="form-control selection_un_opt">
-                    <option value="">Select Union</option>
-                </select>
+            
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label>phone 1</label>
+                    <input type="text" class="form-control udc_phone_info" name="udc_phone_no_1">
+                </div>
+                <div class="form-group col-md-4">
+                    <label>phone 2</label>
+                    <input type="text" class="form-control" name="udc_phone_no_two">
+                </div>
+                <div class="form-group col-md-4">
+                    <label>phone 3</label>
+                    <input type="text" class="form-control" name="udc_phone_no_three">
+                </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label  class="col-sm-2 col-form-label">Name</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="name">
-          </div>
-        </div>
-        
-        <div class="form-row">
-             <div class="form-group col-md-4">
-                 <label>phone 1</label>
-                 <input type="text" class="form-control" name="">
-             </div>
-             <div class="form-group col-md-4">
-                 <label>phone 2</label>
-                 <input type="text" class="form-control" name="">
-             </div>
-             <div class="form-group col-md-4">
-                 <label>phone 3</label>
-                 <input type="text" class="form-control" name="">
-             </div>
-        </div>
-         
-        <div class="form-group row">
-            <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-            <div class="col-sm-10">
-              <input type="email" class="form-control" id="inputEmail3">
-          </div>
-        </div>
-         <div class="form-group  ">
-             <label>remarks</label>
-             <textarea class="form-control" cols="4" rows="4"></textarea>
-         </div>
+            
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                <input type="email" class="form-control udc_email_info" id="inputEmail3" name="udc_email_add">
+            </div>
+            </div>
+            <div class="form-group  ">
+                <label>remarks</label>
+                <textarea class="form-control" cols="4" rows="1" name="udc_remark"></textarea>
+            </div>
 
-         <button class="btn btn-success" type="submit">Save</button>
+            <button class="btn btn-success" type="submit">Save</button>
     </form> <!-- // form -->
 
 
-    <br><br>
+    <br>
     
     <table class="table table-hover table-striped searcing_data_assign"></table>
         </div>
     </div>
 
+    <br><br><br><br><br><br>
+    <br><br><br><br><br><br>
     <br><br><br><br><br><br>
     <br><br><br><br><br><br>
     <br><br><br><br><br><br>
@@ -158,10 +170,10 @@
                 success: function (udc_all_info) {
                     var udc_html_data = '';
                     for (let l = 0; l < udc_all_info.length; l++) {
-                        udc_html_data += '<tr>'+
-                                            '<td>'+udc_all_info[l].udc_person_name+'</td>'+
-                                            '<td>'+udc_all_info[l].udc_mobile_no+'</td>'+
-                                            '<td>'+udc_all_info[l].udc_email+'</td>'+
+                        udc_html_data += '<tr class="udc_info_main_div">'+
+                                            '<b><td type="button" class="btn btn-outline-success btn-sm udc_info_name">'+udc_all_info[l].udc_person_name+'</td></b>'+
+                                            '<td class="udc_info_mobile">'+udc_all_info[l].udc_mobile_no+'</td>'+
+                                            '<td class="udc_info_email">'+udc_all_info[l].udc_email+'</td>'+
                                             '<td>'+udc_all_info[l].union_name+'</td>'+
                                             '<td>'+udc_all_info[l].upazilla_name+'</td>'+
                                             '<td>'+udc_all_info[l].dist_name+'</td>'+
@@ -188,6 +200,15 @@
         }else {
             $('.searcing_data_assign').html('');
         }
+    });
+
+    $(document).on('click', '.udc_info_name', function () {
+        var udc_info_name = $(this).parents('.udc_info_main_div').find('.udc_info_name').html();
+        var udc_info_mobile = $(this).parents('.udc_info_main_div').find('.udc_info_mobile').html();
+        var udc_info_email = $(this).parents('.udc_info_main_div').find('.udc_info_email').html();
+        $('.udc_name_info').val(udc_info_name);
+        $('.udc_phone_info').val(udc_info_mobile);
+        $('.udc_email_info').val(udc_info_email);
     });
 
 </script>

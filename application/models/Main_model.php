@@ -54,4 +54,9 @@ class Main_model extends CI_Model
         $sql = $this->db->get('raw_data');
         return $sql->result(); 
     }
+
+    public function insert_udc_person($data)
+    {
+        $this->db->insert('udc_info_s', $data);
+    }
 }
