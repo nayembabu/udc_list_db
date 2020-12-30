@@ -31,8 +31,11 @@ class Main extends CI_Controller
     
     public function index()
     {
+        $userid = $this->ion_auth->user()->row()->id;
+        $data['get_user_payment'] = $this->main_model->row_count_of_udcinfo($userid);
+        $data['pay_count'] = $this->main_model->payment_complete($userid);
         $this->load->view('partials/header');
-        $this->load->view('admin/index');
+        $this->load->view('admin/index', $data);
         $this->load->view('partials/footer');
     }
 
@@ -163,6 +166,17 @@ class Main extends CI_Controller
         $data['counts'] = $this->main_model->row_count_of_udcinfo($userid);
         $data['payment_complete'] = $this->main_model->payment_complete($userid);
         echo json_encode($data);
-        
+    }
+
+    public function entry_payment_count()
+    {
+        $payment_count_no = $this->input->post('payment_count_no');
+        $userId = $this->input->post('userId');
+        $data = array(
+                    'pmnt_number' => $payment_count_no, 
+                    'users_iid' => $userId,
+                    'pmnt_date' => time()
+                );
+        $this->main_model->entry_payment_count($data);
     }
 }

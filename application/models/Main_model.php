@@ -82,8 +82,14 @@ class Main_model extends CI_Model
     }
 
     public function payment_complete($userid){
+        $this->db->select_sum('pmnt_number');
         $this->db->where('users_iid', $userid);
         $query = $this->db->get('payment_user');
-        return  $query->result();
+        return $query->row()->pmnt_number;
+    }
+
+    public function entry_payment_count($data)
+    {
+        $this->db->insert('payment_user', $data);
     }
 }

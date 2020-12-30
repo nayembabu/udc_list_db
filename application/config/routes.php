@@ -59,6 +59,7 @@ $route['login'] = 'welcome/user_login';
 $route['logout'] = 'auth/logout';
 $route['login_verify'] = 'auth/login';
 $route['udc_added'] = 'main/add_udc_person';
+$route['dashboard'] = 'main/row_count';
 
 
 $route['default_controller'] = 'welcome';

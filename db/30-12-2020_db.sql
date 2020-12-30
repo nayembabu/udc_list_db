@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 07, 2020 at 04:10 PM
+-- Generation Time: Dec 30, 2020 at 12:36 PM
 -- Server version: 8.0.22-0ubuntu0.20.04.3
 -- PHP Version: 7.4.3
 
@@ -31,12 +31,12 @@ SET time_zone = "+00:00";
 CREATE TABLE `dist_list` (
   `dist_id` int NOT NULL,
   `division_id` int NOT NULL,
-  `dist_name` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `dist_bn_name` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `dist_lat` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `dist_lon` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `dist_url` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `dist_name` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dist_bn_name` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dist_lat` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `dist_lon` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `dist_url` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `dist_list`
@@ -116,9 +116,9 @@ INSERT INTO `dist_list` (`dist_id`, `division_id`, `dist_name`, `dist_bn_name`, 
 
 CREATE TABLE `div_list` (
   `div_id` int NOT NULL,
-  `div_name` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `div_bn_name` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `div_url` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+  `div_name` varchar(25) NOT NULL,
+  `div_bn_name` varchar(25) NOT NULL,
+  `div_url` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -172,19 +172,40 @@ CREATE TABLE `login_attempts` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `payment_user`
+--
+
+CREATE TABLE `payment_user` (
+  `pmnt_id` int NOT NULL,
+  `users_iid` int DEFAULT NULL,
+  `pmnt_date` varchar(11) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pmnt_number` varchar(11) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'row_count number',
+  `bks_number` varchar(11) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `payment_user`
+--
+
+INSERT INTO `payment_user` (`pmnt_id`, `users_iid`, `pmnt_date`, `pmnt_number`, `bks_number`) VALUES
+(5, 1, '1609330502', '3', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `raw_data`
 --
 
 CREATE TABLE `raw_data` (
   `raw_data_a_iid` int NOT NULL,
-  `div_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `dist_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `upazilla_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `union_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `union_auto_iid_primary` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `udc_person_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `udc_mobile_no` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `udc_email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL
+  `div_name` varchar(50) DEFAULT NULL,
+  `dist_name` varchar(50) DEFAULT NULL,
+  `upazilla_name` varchar(50) DEFAULT NULL,
+  `union_name` varchar(50) DEFAULT NULL,
+  `union_auto_iid_primary` varchar(50) DEFAULT NULL,
+  `udc_person_name` varchar(50) DEFAULT NULL,
+  `udc_mobile_no` varchar(50) DEFAULT NULL,
+  `udc_email` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -9652,6 +9673,7 @@ INSERT INTO `raw_data` (`raw_data_a_iid`, `div_name`, `dist_name`, `upazilla_nam
 
 CREATE TABLE `udc_info_s` (
   `udc_list_auto_p_iidd` int NOT NULL,
+  `user_idp` int DEFAULT NULL,
   `div_a_iddd` int DEFAULT NULL,
   `dist_a_iddd` int DEFAULT NULL,
   `up_a_iddd` int DEFAULT NULL,
@@ -9661,6 +9683,8 @@ CREATE TABLE `udc_info_s` (
   `udc_phone_no_2` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `udc_phone_no_3` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `udc_email_no` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `fb_url` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `activity` tinyint NOT NULL DEFAULT '1',
   `remarks` longtext CHARACTER SET utf8 COLLATE utf8_general_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -9668,13 +9692,12 @@ CREATE TABLE `udc_info_s` (
 -- Dumping data for table `udc_info_s`
 --
 
-INSERT INTO `udc_info_s` (`udc_list_auto_p_iidd`, `div_a_iddd`, `dist_a_iddd`, `up_a_iddd`, `un_a_iddd`, `udc_per_name`, `udc_phone_no`, `udc_phone_no_2`, `udc_phone_no_3`, `udc_email_no`, `remarks`) VALUES
-(1, 1, 8, 67, 645, 'Abu Sayed', '01822444214', '', '', '4no.dhoom.up@gmail.com', ''),
-(2, 1, 8, 67, 644, 'মো: শহিদুল হক পরাগ', '01820505076', '', '', 'zorargonjno3ctg_uisc@yahoo.com', ''),
-(3, 1, 8, 67, 642, 'সাইফুর রহমান ( রাজু)', '01814974890', '', '', 'rajuahamad73@gmail.com', ''),
-(4, 1, 8, 67, 646, 'প্রতাপ চন্দ্র নাথ', '01813993343', '', '', 'osmanpur.uisc@gmail.com', ''),
-(5, 1, 8, 67, 654, 'জাহেদ হোসেন', '01824939232', '', '', 'uisc13@gmail.com', ''),
-(6, 1, 2, 19, 198, 'শাহাদাত হোসেন', '01815807106', '', '', 'shahadat.feni06@gmail.com', '');
+INSERT INTO `udc_info_s` (`udc_list_auto_p_iidd`, `user_idp`, `div_a_iddd`, `dist_a_iddd`, `up_a_iddd`, `un_a_iddd`, `udc_per_name`, `udc_phone_no`, `udc_phone_no_2`, `udc_phone_no_3`, `udc_email_no`, `fb_url`, `activity`, `remarks`) VALUES
+(1, 1, 1, 8, 67, 645, 'Abu Sayed', '01822444214', '', '', '4no.dhoom.up@gmail.com', NULL, 1, ''),
+(2, 1, 1, 8, 67, 644, 'মো: শহিদুল হক পরাগ', '01820505076', '', '', 'zorargonjno3ctg_uisc@yahoo.com', NULL, 1, ''),
+(3, 1, 1, 8, 67, 642, 'সাইফুর রহমান ( রাজু)', '01814974890', '', '', 'rajuahamad73@gmail.com', NULL, 1, ''),
+(12, 2, 1, 8, 67, 654, 'জাহেদ হোসেন', '01824939232', '', '', 'uisc13@gmail.com', NULL, 1, ''),
+(13, 1, 2, 12, 104, 951, 'মোঃ জুবায়ের', '01728329160', '', '', 'parthochowdhury919@gmail.com', NULL, 1, '');
 
 -- --------------------------------------------------------
 
@@ -9685,9 +9708,9 @@ INSERT INTO `udc_info_s` (`udc_list_auto_p_iidd`, `div_a_iddd`, `dist_a_iddd`, `
 CREATE TABLE `un_list` (
   `un_id` int NOT NULL,
   `upazilla_id` int NOT NULL,
-  `un_name` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `un_bn_name` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `un_url` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+  `un_name` varchar(25) NOT NULL,
+  `un_bn_name` varchar(25) NOT NULL,
+  `un_url` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -14251,9 +14274,9 @@ INSERT INTO `un_list` (`un_id`, `upazilla_id`, `un_name`, `un_bn_name`, `un_url`
 CREATE TABLE `up_list` (
   `up_id` int NOT NULL,
   `district_id` int NOT NULL,
-  `up_name` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `up_bn_name` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `up_url` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+  `up_name` varchar(25) NOT NULL,
+  `up_bn_name` varchar(25) NOT NULL,
+  `up_url` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -14787,9 +14810,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `u_type`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'admin', 'nayembabu', '$2y$12$ZpV4ECiMmwrNsgySplTLn.VGjKopDKSq2Pa.sfNC74l8jPZBaQe82', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1607350554, 1, 'Admin', 'istrator', 'ADMIN', '0'),
-(2, '127.0.0.1', 'admin', 'jashim', '$2y$12$0wH1UhuGdaiMXoFwj6b6neHvQB0CSqT4qzrn5WhhlSTQhCm0aKfn6', 'jashim@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1607352860, 1, 'jashim', 'uddin', '', ''),
-(3, '127.0.0.1', 'admin', 'sakil', '$2y$12$vVbUtfiWLQ9BwrKkR2CKXeHRjdsCK4RgOQxGl9Ai8wSyL9bpX.sJ.', 'sakil@example.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1607351027, 1, 'sayed', 'sakil', '', '');
+(1, '127.0.0.1', 'admin', 'nayembabu', '$2y$12$ZpV4ECiMmwrNsgySplTLn.VGjKopDKSq2Pa.sfNC74l8jPZBaQe82', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1609331544, 1, 'Admin', 'istrator', 'ADMIN', '0'),
+(2, '127.0.0.1', 'admin', 'jashim', '$2y$12$0wH1UhuGdaiMXoFwj6b6neHvQB0CSqT4qzrn5WhhlSTQhCm0aKfn6', 'jashim@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1609286363, 1, 'jashim', 'uddin', '', ''),
+(3, '127.0.0.1', 'admin', 'sakil', '$2y$12$vVbUtfiWLQ9BwrKkR2CKXeHRjdsCK4RgOQxGl9Ai8wSyL9bpX.sJ.', 'sakil@example.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1607367715, 1, 'sayed', 'sakil', '', '');
 
 -- --------------------------------------------------------
 
@@ -14841,6 +14864,12 @@ ALTER TABLE `groups`
 --
 ALTER TABLE `login_attempts`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `payment_user`
+--
+ALTER TABLE `payment_user`
+  ADD PRIMARY KEY (`pmnt_id`);
 
 --
 -- Indexes for table `raw_data`
@@ -14913,7 +14942,13 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `payment_user`
+--
+ALTER TABLE `payment_user`
+  MODIFY `pmnt_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `raw_data`
@@ -14925,7 +14960,7 @@ ALTER TABLE `raw_data`
 -- AUTO_INCREMENT for table `udc_info_s`
 --
 ALTER TABLE `udc_info_s`
-  MODIFY `udc_list_auto_p_iidd` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `udc_list_auto_p_iidd` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `un_list`
