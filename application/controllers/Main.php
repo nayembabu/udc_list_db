@@ -98,6 +98,7 @@ class Main extends CI_Controller
 
     public function add_udc_person()
     {
+        $requUser = $this->ion_auth->user()->row()->id;
         $div_auto_iid = $this->input->post('div_auto_iid');
         $dis_a_iidddd = $this->input->post('dis_a_iidddd');
         $up_auto_iidddd = $this->input->post('up_auto_iidddd');
@@ -111,6 +112,7 @@ class Main extends CI_Controller
         $check_mobile_entry = $this->main_model->check_mobile_entry($udc_phone_no_1);
         if (empty($check_mobile_entry)) {
             $data = array(
+                        'user_idp' => $requUser,
                         'div_a_iddd' => $div_auto_iid,
                         'dist_a_iddd' => $dis_a_iidddd,
                         'up_a_iddd' => $up_auto_iidddd,
@@ -129,5 +131,38 @@ class Main extends CI_Controller
             $this->session->set_flashdata('wrong_messege', 'This Phone Already added.');
             redirect('add');
         }
+    }
+
+    /**
+     *  search section from new table: udc_info_s
+     *  data will be get by two way 
+     *  district wise data and union wise data 
+     */
+
+    public function search_new() {
+
+        $this->load->view('partials/header');
+        $this->load->view('admin/new_search');
+        $this->load->view('partials/footer');
+    }
+
+    // Get row count 
+    public function row_count() {
+        
+        $data['users'] = $this->main_model->_getAll_user();
+        $this->load->view('partials/header');
+        $this->load->view('admin/row_countPageAdm', $data);
+        $this->load->view('partials/footer'); 
+    }
+    /**
+     *  get user wise data from  db
+     *  return count
+     */
+    public function getDataAsUser(){
+        $userid = $this->input->post('userid');
+        $data['counts'] = $this->main_model->row_count_of_udcinfo($userid);
+        $data['payment_complete'] = $this->main_model->payment_complete($userid);
+        echo json_encode($data);
+        
     }
 }

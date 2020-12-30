@@ -66,4 +66,24 @@ class Main_model extends CI_Model
         $sql = $this->db->get('udc_info_s');
         return $sql->row();    
     }
+    /** 
+     *  return all users from users table
+     * 
+     */
+    public function _getAll_user(){
+        $data = $this->db->get('users');
+        return $data->result();
+    }
+
+    public function row_count_of_udcinfo($userid) {
+        $this->db->where('user_idp', $userid);
+        $query = $this->db->get('udc_info_s');
+        return $query->result();
+    }
+
+    public function payment_complete($userid){
+        $this->db->where('users_iid', $userid);
+        $query = $this->db->get('payment_user');
+        return  $query->result();
+    }
 }

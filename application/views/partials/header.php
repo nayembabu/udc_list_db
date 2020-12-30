@@ -33,14 +33,17 @@
                         <a class="nav-link" href="add">Add Person <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="search">search</a>
+                        <a class="nav-link" href="search">Search</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="all_mobile">raw data</a>
+                        <a class="nav-link" href="all_mobile">Raw data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="search_new">Search</a>
                     </li>
                 </ul>
                 <div class="form-inline my-2 my-lg-0">
-                    <a href="auth" class="btn btn-outline-success my-2 my-sm-0"> auth page</a>
+                    <a href="auth" class="btn btn-outline-success mx-2 my-sm-0"> auth page</a>
                     <a href="logout" class="btn btn-outline-success my-2 my-sm-0" >Log Out</a>
                 </div>
             </div>
