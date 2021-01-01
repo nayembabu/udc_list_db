@@ -60,6 +60,7 @@ $route['logout'] = 'auth/logout';
 $route['login_verify'] = 'auth/login';
 $route['udc_added'] = 'main/add_udc_person';
 $route['dashboard'] = 'main/row_count';
+$route['aa'] = 'main/entryforAdmin';
 
 
 $route['default_controller'] = 'welcome';

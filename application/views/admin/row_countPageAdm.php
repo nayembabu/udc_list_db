@@ -20,12 +20,15 @@
                 </center>
             </div>
 
+            <div class="get_total_data"></div>
+            
+            <div class="entry_list_udc">
+                <table class="table entry_list_table"></table>
+            </div>
+
         </div>
     </div>
 </div>
-
-
-
 
 
 
@@ -34,6 +37,13 @@
     $('.selectUser').change(function(){
         var userId = $(this).val();
         get_user_entry_data(userId);
+        $('.entry_list_table').html();
+        $('.get_total_data').html();
+    });
+
+    $(document).on('click', '.get_all_data', function () {
+        var user_IDD = $('.selectUser').val();
+        entry_list_data(user_IDD)
     });
 
     $(document).on('click', '.total_payment_count_box_display', function () {
@@ -92,6 +102,41 @@
                                 '</td>'+
                             '</tr>';
             $('.data_history_table').html(tableData);
+            $('.get_total_data').html('<center><button type="button" class="btn btn-outline-success mx-auto my-3 get_all_data"> Show All Data </button></center>');
+           }
+        });
+    }
+
+    function entry_list_data(user_IDD) {
+        $.ajax({
+           url: 'main/getDataAsUser',
+           method: 'POST',
+           dataType:'json',
+           data: {
+               userid: user_IDD
+           },
+           success:function(resp){
+               let html_element;
+               for (let n = 0; n < resp.length; n++) {
+                html_element += '<tr>'+
+                                    '<th> '+resp[n].div_bn_name+' </th>'+
+                                    '<th> '+resp[n].dist_bn_name+' </th>'+
+                                    '<th> '+resp[n].up_bn_name+' </th>'+
+                                    '<th> '+resp[n].un_bn_name+' </th>'+
+                                    '<th> '+resp[n].udc_per_name+' </th>'+
+                                    '<th> '+resp[n].udc_phone_no+' </th>'+
+                                    '<th> '+resp[n].udc_email_no+' </th>'+
+                                '</tr>';
+               }
+               $('.entry_list_table').html('<tr>'+
+                                                '<th> Div </th>'+
+                                                '<th> Dist </th>'+
+                                                '<th> Upazilla </th>'+
+                                                '<th> Union </th>'+
+                                                '<th> Name </th>'+
+                                                '<th> Mobile </th>'+
+                                                '<th> Email </th>'+
+                                            '</tr>'+);
            }
         });
     }

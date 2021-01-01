@@ -1,10 +1,11 @@
 
 <?php
     if (empty($get_user_payment)) {
-        $get_user_payment = 0;
+        $total_entrys = 0;
+    }else {
+        $total_entrys = count($get_user_payment);
     }
-    $total_entrys = count($get_user_payment);
-    $total_unPay = $total_entrys - $pay_count;
+        $total_unPay = $total_entrys - $pay_count;
 ?>
 
 

@@ -179,4 +179,49 @@ class Main extends CI_Controller
                 );
         $this->main_model->entry_payment_count($data);
     }
+
+    public function entryforAdmin()
+    {
+        $data['all_div'] = $this->main_model->get_all_div();
+        $this->load->view('partials/header');
+        $this->load->view('admin/add_form_admin', $data);
+        $this->load->view('partials/footer');
+    }
+
+    public function udc_add_2()
+    {
+        $requUser = $this->ion_auth->user()->row()->id;
+        $div_auto_iid = $this->input->post('div_auto_iid');
+        $dis_a_iidddd = $this->input->post('dis_a_iidddd');
+        $up_auto_iidddd = $this->input->post('up_auto_iidddd');
+        $un_a_idid = $this->input->post('un_a_idid');
+        $udc_name = $this->input->post('udc_name');
+        $udc_phone_no_1 = $this->input->post('udc_phone_no_1');
+        $udc_phone_no_two = $this->input->post('udc_phone_no_two');
+        $udc_phone_no_three = $this->input->post('udc_phone_no_three');
+        $udc_email_add = $this->input->post('udc_email_add');
+        $udc_remark = $this->input->post('udc_remark');
+        $check_mobile_entry = $this->main_model->check_mobile_entry($udc_phone_no_1);
+        if (empty($check_mobile_entry)) {
+            $data = array(
+                        'user_idp' => $requUser,
+                        'div_a_iddd' => $div_auto_iid,
+                        'dist_a_iddd' => $dis_a_iidddd,
+                        'up_a_iddd' => $up_auto_iidddd,
+                        'un_a_iddd' => $un_a_idid,
+                        'udc_per_name' => $udc_name,
+                        'udc_phone_no' => $udc_phone_no_1,
+                        'udc_phone_no_2' => $udc_phone_no_two,
+                        'udc_phone_no_3' => $udc_phone_no_three,
+                        'udc_email_no' => $udc_email_add,
+                        'remarks' => $udc_remark, 
+                    );
+            $this->main_model->insert_udc_person($data);
+            $this->session->set_flashdata('add_messege', 'Added Succesfully');
+            redirect('main/entryforAdmin');
+        }else {
+            $this->session->set_flashdata('wrong_messege', 'This Phone Already added.');
+            redirect('main/entryforAdmin');
+        }
+    }
 }

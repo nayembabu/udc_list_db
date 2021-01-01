@@ -77,6 +77,10 @@ class Main_model extends CI_Model
 
     public function row_count_of_udcinfo($userid) {
         $this->db->where('user_idp', $userid);
+        $this->db->join('un_list', 'un_list.un_id = udc_info_s.un_a_iddd', 'left');
+        $this->db->join('up_list', 'up_list.up_id = udc_info_s.up_a_iddd', 'left');
+        $this->db->join('dist_list', 'dist_list.dist_id = udc_info_s.dist_a_iddd', 'left');
+        $this->db->join('div_list', 'div_list.div_id = udc_info_s.div_a_iddd', 'left');
         $query = $this->db->get('udc_info_s');
         return $query->result();
     }
