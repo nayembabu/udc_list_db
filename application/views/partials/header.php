@@ -35,6 +35,22 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="add">Add Person <span class="sr-only">(current)</span></a>
                     </li>
+
+                    
+                    <li class="nav-item active">
+                        <a class="nav-link" href="search_new"> Mobile Search New </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="send_sms"> SMS </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="view_udc"> Verify UDC </a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a class="nav-link" href="search_old"> Mobile Search Old </a>
+                    </li>
+
                     <!-- <li class="nav-item">
                         <a class="nav-link" href="search">Search</a>
                     </li>
@@ -44,6 +60,8 @@
                     <li class="nav-item">
                         <a class="nav-link" href="search_new">Search</a>
                     </li> -->
+
+
                 </ul>
                 <div class="form-inline my-2 my-lg-0">
                     <!-- <a href="auth" class="btn btn-outline-success mx-2 my-sm-0"> auth page</a> -->

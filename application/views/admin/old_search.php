@@ -7,7 +7,7 @@
     
         <div class="form-inline">
             <input type="text" id="search" class="form-control search mr-3 searcing_options" placeholder="type your data">
-            <button type="button" class="btn btn-success searchbtn">Search</button>
+            <button type="button" class="btn btn-success search_btn">Search</button>
         </div>
     </div>
 <br>
@@ -23,11 +23,11 @@
 
 <script type="text/javascript">
 
-    $(document).on('click', '.searchbtn', function () {
+    $(document).on('click', '.search_btn', function () {
         var type_search_data = $('.searcing_options').val();
         if (type_search_data != '') {
             $.ajax({
-                url: 'main/get_udc_info_by_json_new?search_info=' + type_search_data,
+                url: 'main/get_udc_info_by_json?search_info=' + type_search_data,
                 method: 'GET',
                 data: '',
                 dataType: 'json',
@@ -35,20 +35,20 @@
                     var html_data = '';
                     for (let n = 0; n < udc_info.length; n++) {
                         html_data += '<tr>'+
-                                        '<td>'+udc_info[n].udc_per_name+'</td>'+
-                                        '<td>'+udc_info[n].udc_phone_no+'</td>'+
-                                        '<td>'+udc_info[n].udc_email_no+'</td>'+
-                                        '<td>'+udc_info[n].un_bn_name+'</td>'+
-                                        '<td>'+udc_info[n].up_bn_name+'</td>'+
-                                        '<td>'+udc_info[n].dist_bn_name+'</td>'+
-                                        '<td>'+udc_info[n].div_bn_name+'</td>'+
+                                        '<td>'+udc_info[n].udc_person_name+'</td>'+
+                                        '<td>'+udc_info[n].udc_mobile_no+'</td>'+
+                                        '<td>'+udc_info[n].udc_email+'</td>'+
+                                        '<td>'+udc_info[n].union_name+'</td>'+
+                                        '<td>'+udc_info[n].upazilla_name+'</td>'+
+                                        '<td>'+udc_info[n].dist_name+'</td>'+
+                                        '<td>'+udc_info[n].div_name+'</td>'+
                                     '</tr>';
                     }
                     $('.searcing_data_assign').html('<thead>'+
                                     '<tr>'+
-                                        '<th> UDC name </th>'+
-                                        '<th> Phone </th>'+
-                                        '<th> Email </th>'+
+                                        '<th> udc name </th>'+
+                                        '<th> phone </th>'+
+                                        '<th> email </th>'+
                                         '<th> Union </th>'+
                                         '<th> Upzila </th>'+
                                         '<th> Dist name </th>'+

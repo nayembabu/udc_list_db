@@ -22,12 +22,14 @@
 
             <div class="get_total_data"></div>
             
-            <div class="entry_list_udc">
-                <table class="table entry_list_table"></table>
-            </div>
 
         </div>
     </div>
+    
+    <div class="entry_list_udc">
+        <table class="table entry_list_table"></table>
+    </div>
+
 </div>
 
 
@@ -109,7 +111,7 @@
 
     function entry_list_data(user_IDD) {
         $.ajax({
-           url: 'main/getDataAsUser',
+           url: 'main/getDataBYUser_idddD',
            method: 'POST',
            dataType:'json',
            data: {
@@ -118,17 +120,33 @@
            success:function(resp){
                let html_element;
                for (let n = 0; n < resp.length; n++) {
-                html_element += '<tr>'+
-                                    '<th> '+resp[n].div_bn_name+' </th>'+
-                                    '<th> '+resp[n].dist_bn_name+' </th>'+
-                                    '<th> '+resp[n].up_bn_name+' </th>'+
-                                    '<th> '+resp[n].un_bn_name+' </th>'+
-                                    '<th> '+resp[n].udc_per_name+' </th>'+
-                                    '<th> '+resp[n].udc_phone_no+' </th>'+
-                                    '<th> '+resp[n].udc_email_no+' </th>'+
-                                '</tr>';
+
+                    if (resp[n].activity == '0') {
+                        html_element += '<tr class="btn-outline-danger">'+
+                                            '<td class="my-3 btn btn-outline-success btn_activity" udc_data_Idd="'+resp[n].udc_list_auto_p_iidd+'" data_activity="'+resp[n].activity+'"> Active </td>'+
+                                            '<td> '+resp[n].div_bn_name+' </td>'+
+                                            '<td> '+resp[n].dist_bn_name+' </td>'+
+                                            '<td> '+resp[n].up_bn_name+' </td>'+
+                                            '<td> '+resp[n].un_bn_name+' </td>'+
+                                            '<td> '+resp[n].udc_per_name+' </td>'+
+                                            '<td> '+resp[n].udc_phone_no+' </td>'+
+                                            '<td> '+resp[n].udc_email_no+' </td>'+
+                                        '</tr>';   
+                    }else {
+                        html_element += '<tr class="btn-outline-success">'+
+                                            '<td class="my-3 btn btn-outline-danger btn_activity" udc_data_Idd="'+resp[n].udc_list_auto_p_iidd+'" data_activity="'+resp[n].activity+'"> Active </td>'+
+                                            '<td> '+resp[n].div_bn_name+' </td>'+
+                                            '<td> '+resp[n].dist_bn_name+' </td>'+
+                                            '<td> '+resp[n].up_bn_name+' </td>'+
+                                            '<td> '+resp[n].un_bn_name+' </td>'+
+                                            '<td> '+resp[n].udc_per_name+' </td>'+
+                                            '<td> '+resp[n].udc_phone_no+' </td>'+
+                                            '<td> '+resp[n].udc_email_no+' </td>'+
+                                        '</tr>';   
+                    }
                }
                $('.entry_list_table').html('<tr>'+
+                                                '<th> Activity </th>'+
                                                 '<th> Div </th>'+
                                                 '<th> Dist </th>'+
                                                 '<th> Upazilla </th>'+
@@ -136,9 +154,26 @@
                                                 '<th> Name </th>'+
                                                 '<th> Mobile </th>'+
                                                 '<th> Email </th>'+
-                                            '</tr>'+);
+                                            '</tr>'+html_element);
            }
         });
     }
+
+    $(document).on('click', '.btn_activity', function () {
+        var udc_data_a_iid = $(this).attr('udc_data_Idd');
+        var udc_data_activity = $(this).attr('data_activity');
+        $.ajax({
+           url: 'main/udc_data_activity',
+           method: 'POST',
+           data: {
+            udc_data_a_iid: udc_data_a_iid,
+            udc_data_activity: udc_data_activity
+           },
+           success:function(){
+                var user_IDD = $('.selectUser').val();
+                entry_list_data(user_IDD);
+           }
+        })
+    });
 
 </script>

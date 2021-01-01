@@ -32,7 +32,7 @@ class Main extends CI_Controller
     public function index()
     {
         $userid = $this->ion_auth->user()->row()->id;
-        $data['get_user_payment'] = $this->main_model->row_count_of_udcinfo($userid);
+        $data['get_user_payment'] = $this->main_model->row_count_of_udcinfo_which_active($userid);
         $data['pay_count'] = $this->main_model->payment_complete($userid);
         $this->load->view('partials/header');
         $this->load->view('admin/index', $data);
@@ -60,6 +60,13 @@ class Main extends CI_Controller
     {
         $search_data = $this->input->get('search_info');                
         $data = $this->main_model->search_udc_info($search_data);
+        echo json_encode($data);
+    }
+    
+    public function get_udc_info_by_json_new()
+    {
+        $search_data = $this->input->get('search_info');                
+        $data = $this->main_model->search_udc_info_new($search_data);
         echo json_encode($data);
     }
 
@@ -142,6 +149,14 @@ class Main extends CI_Controller
      *  district wise data and union wise data 
      */
 
+    public function search_old() {
+
+        $this->load->view('partials/header');
+        $this->load->view('admin/old_search');
+        $this->load->view('partials/footer');
+    }
+
+    
     public function search_new() {
 
         $this->load->view('partials/header');
@@ -165,6 +180,12 @@ class Main extends CI_Controller
         $userid = $this->input->post('userid');
         $data['counts'] = $this->main_model->row_count_of_udcinfo($userid);
         $data['payment_complete'] = $this->main_model->payment_complete($userid);
+        echo json_encode($data);
+    }
+    
+    public function getDataBYUser_idddD(){
+        $userid = $this->input->post('userid');
+        $data = $this->main_model->row_count_of_udcinfo($userid);
         echo json_encode($data);
     }
 
@@ -223,5 +244,74 @@ class Main extends CI_Controller
             $this->session->set_flashdata('wrong_messege', 'This Phone Already added.');
             redirect('main/entryforAdmin');
         }
+    }
+
+    public function udc_data_activity()
+    {
+        $data_a_iid = $this->input->post('udc_data_a_iid');
+        $data_activity = $this->input->post('udc_data_activity');
+        if ($data_activity == 1) {
+            $activity_id = 0;
+        }elseif ($data_activity == 0) {
+            $activity_id = 1;
+        }else {
+            $activity_id = 1;
+        }
+
+        $data_array = array(
+                        'activity' => $activity_id, 
+                    );
+        $this->main_model->update_udc_data_activity($data_array, $data_a_iid);
+    }
+
+    public function get_udc_info_by_union()
+    {
+        $data['all_div'] = $this->main_model->get_all_div();
+        $this->load->view('partials/header');
+        $this->load->view('admin/get_udc_list', $data);
+        $this->load->view('partials/footer');
+    }
+
+    public function get_udc_info_by_un_auto_id()
+    {
+        $un_auto_iddd = $this->input->get('un_auto_iddd');
+        $data = $this->main_model->get_udc_info_by_un_auto_id($un_auto_iddd);
+        echo json_encode($data);
+    }
+
+    public function get_udc_info_by_all()
+    {
+        $data['all_div'] = $this->main_model->get_all_div();
+        $this->load->view('partials/header');
+        $this->load->view('admin/get_udc', $data);
+        $this->load->view('partials/footer');
+    }
+
+    public function get_un_info_by_div_a_id()
+    {
+        $auto_id = $this->input->get('auto_id');
+        $data = $this->main_model->get_un_info_by_div_a_id($auto_id);
+        echo json_encode($data);
+    }
+
+    public function get_un_info_by_dist_a_id()
+    {
+        $auto_id = $this->input->get('auto_id');
+        $data = $this->main_model->get_un_info_by_dist_a_id($auto_id);
+        echo json_encode($data);
+    }
+
+    public function get_un_info_by_up_id()
+    {
+        $auto_id = $this->input->get('auto_id');
+        $data = $this->main_model->get_un_info_by_up_id($auto_id);
+        echo json_encode($data);
+    }
+
+    public function get_un_info_by_un_id()
+    {
+        $auto_id = $this->input->get('auto_id');
+        $data = $this->main_model->get_un_info_by_un_id($auto_id);
+        echo json_encode($data);
     }
 }

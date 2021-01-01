@@ -59,8 +59,19 @@ $route['login'] = 'welcome/user_login';
 $route['logout'] = 'auth/logout';
 $route['login_verify'] = 'auth/login';
 $route['udc_added'] = 'main/add_udc_person';
-$route['dashboard'] = 'main/row_count';
+$route['count'] = 'main/row_count';
 $route['aa'] = 'main/entryforAdmin';
+$route['send_sms'] = 'main/get_udc_info_by_all';
+$route['view_udc'] = 'main/get_udc_info_by_union';
+$route['search_new'] = 'main/search_new';
+$route['search_old'] = 'main/search_old';
+
+
+
+
+
+
+
 
 
 $route['default_controller'] = 'welcome';
