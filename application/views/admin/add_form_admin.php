@@ -1,26 +1,29 @@
 <br><br>
 
-<?php
-    $add_messege = $this->session->flashdata('add_messege');
-    $wrong_messege = $this->session->flashdata('wrong_messege');
-?>
+
+
 
 
 
 <div class="container">
     <div class="card">
-        <?php if (!empty($add_messege)) { ?>
-            <h3 class="flashmessage"><center class="alert alert-success"> <?php echo $add_messege; ?> </center> </h3>
-        <?php } ?>
-        <?php if (!empty($wrong_messege)) { ?>
-            <h3 class="flashmessage"><center class="alert alert-danger"> <?php echo $wrong_messege; ?> </center> </h3>
-        <?php } ?>
+
+        <h3 class="flashmessage flashmessage_add" style="display:none" >
+            <center class="alert alert-success "> 
+                Added Succesfully 
+            </center> 
+        </h3>
+        <h3 class="flashmessage_wrong" style="display:none">
+            <center class="alert alert-danger "> 
+                This Phone Already added. 
+            </center> 
+        </h3>
+
         <div >
             <h2 >Add UDC</h2>
         </div>
 
         <div class="card-body">
-        <form action="main/udc_add_2" method="post">
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <select name="div_auto_iid" required="required" id="" class="form-control div_selection_opt">
@@ -60,11 +63,11 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label>phone 2</label>
-                    <input type="text" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" class="form-control" name="udc_phone_no_two">
+                    <input type="text" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" class="form-control udc_phone_no_two" name="udc_phone_no_two">
                 </div>
                 <div class="form-group col-md-4">
                     <label>phone 3</label>
-                    <input type="text" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" class="form-control" name="udc_phone_no_three">
+                    <input type="text" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" class="form-control udc_phone_no_three" name="udc_phone_no_three">
                 </div>
             </div>
             
@@ -76,11 +79,10 @@
             </div>
             <div class="form-group  ">
                 <label>remarks</label>
-                <textarea class="form-control" cols="4" rows="1" name="udc_remark"></textarea>
+                <textarea class="form-control udc_remark_info" cols="4" rows="1" name="udc_remark"></textarea>
             </div>
 
-            <button class="btn btn-success" type="submit">Save</button>
-    </form> <!-- // form -->
+            <button class="btn btn-success save_data_btn" type="submit">Save</button>
 
 
     <br>
@@ -214,5 +216,56 @@
         $('.udc_phone_info').val(udc_info_mobile);
         $('.udc_email_info').val(udc_info_email);
     });
+
+    $(document).on('click', '.save_data_btn', function () {
+        let div_auto_iid        = $('.div_selection_opt').val();        
+        let dis_a_iidddd        = $('.dis_select_opt').val();        
+        let up_auto_iidddd      = $('.select_up_opt').val();        
+        let un_a_idid           = $('.selection_un_opt').val();        
+        let udc_name            = $('.udc_name_info').val();
+        let udc_phone_no_1      = $('.udc_phone_info').val();
+        let udc_phone_no_two    = $('.udc_phone_no_two').val();
+        let udc_phone_no_three  = $('.udc_phone_no_three').val();
+        let udc_email_add       = $('.udc_email_info').val();
+        let udc_remark          = $('.udc_remark_info').val();
+
+
+        $.ajax({
+            url: 'main/udc_add_2',
+            method: 'POST',
+            data: {
+                div_auto_iid: div_auto_iid,
+                dis_a_iidddd: dis_a_iidddd,
+                up_auto_iidddd: up_auto_iidddd,
+                un_a_idid: un_a_idid,
+                udc_name: udc_name,
+                udc_phone_no_1: udc_phone_no_1,
+                udc_phone_no_two: udc_phone_no_two,
+                udc_phone_no_three: udc_phone_no_three,
+                udc_email_add: udc_email_add,
+                udc_remark: udc_remark
+            },
+            dataType: 'json',
+            success: function (res) {
+                $('.udc_name_info').val('');
+                $('.udc_phone_info').val('');
+                $('.udc_phone_no_two').val('');
+                $('.udc_phone_no_three').val('');
+                $('.udc_email_info').val('');
+                $('.udc_remark_info').val('');
+                let suc_msg = res.succ;
+                let wrong_msg = res.wrong;
+                if (suc_msg == null) {
+                    $(".flashmessage_wrong").fadeIn();
+                    $(".flashmessage_wrong").delay(5000).fadeOut(50);                    
+                }else {
+                    $(".flashmessage_add").fadeIn();
+                    $(".flashmessage_add").delay(5000).fadeOut(50);
+                }
+            }
+        })
+        
+    });
+
 
 </script>

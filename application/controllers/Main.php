@@ -238,12 +238,11 @@ class Main extends CI_Controller
                         'remarks' => $udc_remark, 
                     );
             $this->main_model->insert_udc_person($data);
-            $this->session->set_flashdata('add_messege', 'Added Succesfully');
-            redirect('main/entryforAdmin');
+            $data['succ'] = 'Added Succesfully';
         }else {
-            $this->session->set_flashdata('wrong_messege', 'This Phone Already added.');
-            redirect('main/entryforAdmin');
+            $data['wrong'] = 'This Phone Already added.';
         }
+        echo json_encode($data);
     }
 
     public function udc_data_activity()
