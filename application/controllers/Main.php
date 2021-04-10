@@ -313,4 +313,12 @@ class Main extends CI_Controller
         $data = $this->main_model->get_un_info_by_un_id($auto_id);
         echo json_encode($data);
     }
+
+    public function all_udc_list()
+    {
+        $data['all_udc'] = $this->main_model->get_all_udc_lists();
+        $this->load->view('partials/header');
+        $this->load->view('admin/get_all_udc_lists', $data);
+        $this->load->view('partials/footer');
+    }
 }
