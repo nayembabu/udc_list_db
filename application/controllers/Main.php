@@ -321,4 +321,12 @@ class Main extends CI_Controller
         $this->load->view('admin/get_all_udc_lists', $data);
         $this->load->view('partials/footer');
     }
+
+    public function getAllUdcForDownloadExcel()
+    {
+        $data['all_div'] = $this->main_model->get_all_div();
+        $this->load->view('partials/header');
+        $this->load->view('admin/get_all_udc_for_download_excel', $data);
+        $this->load->view('partials/footer');
+    }
 }
