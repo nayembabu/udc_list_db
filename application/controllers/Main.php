@@ -20,12 +20,12 @@ class Main extends CI_Controller
         $this->load->library('Ion_auth');
         $this->load->model('ion_auth_model');
 
-        if (!$this->ion_auth->logged_in()) {
-            redirect('login', 'refresh');
-        }
-        if (!$this->ion_auth->in_group(array('admin'))) {
-            redirect('logout');
-        }
+        // if (!$this->ion_auth->logged_in()) {
+        //     redirect('login', 'refresh');
+        // }
+        // if (!$this->ion_auth->in_group(array('admin'))) {
+        //     redirect('logout');
+        // }
     }
 
     

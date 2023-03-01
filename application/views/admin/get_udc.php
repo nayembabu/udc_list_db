@@ -224,7 +224,7 @@
             success: function (udc_in) {
                 var html_datan='';
                 for (let n = 0; n < udc_in.length; n++) {
-                    html_datan += udc_in[n].udc_phone_no+';';
+                    html_datan += `"+88${udc_in[n].udc_phone_no}", `;
                 }
                 $('.mobile_no_textarea_box').html(html_datan);
             }
